@@ -10,7 +10,7 @@ interface StockItem {
 }
 
 
-const getCurrentStockLevel = (sku: string) => {
+const getCurrentStockLevel = (sku: string): Promise<{ sku: string, qty: number }> => {
     return new Promise((resolve, reject) => {
         const stock: Array<StockItem> = require('./data/stock.json');
         const transactions: Array<Transaction> = require('./data/transactions.json');
@@ -40,7 +40,7 @@ const getCurrentStockLevel = (sku: string) => {
 }
 
 
-const calcualateStockLevelChange = (transactionsMade: Array<Transaction>) => {
+const calcualateStockLevelChange = (transactionsMade: Array<Transaction>): number => {
     let totalStock = 0;
     for (let i = 0; i < transactionsMade.length; i++) {
         if (transactionsMade[i].type === 'order') {
